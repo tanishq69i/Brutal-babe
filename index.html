@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
+  <title>Midnight Bae Pro</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="theme-color" content="#1FB8CD">
+  <link rel="manifest" data-href="/manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+</head>
+<body>
+  <!-- Main App Shell -->
+  <div class="app-shell">
+    <!-- Header -->
+    <header class="app-header" id="appHeader">
+      <div class="header-content">
+        <div class="companion-info">
+          <div class="avatar-circle" id="avatarEmoji">😏</div>
+          <div class="name-stack">
+            <h1 id="companionName">Priya</h1>
+            <span class="tagline">
+              <span id="cultureLabel">Indian</span> • <span id="personalityLabel">Sarcastic Savage</span>
+            </span>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button id="homeBtn" class="home-btn" aria-label="Scroll to top" title="Home">🏠</button>
+          <button id="settingsBtn" class="settings-btn" aria-label="Open settings">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M12 1v6m0 10v6M4.22 4.22l4.24 4.24m8.48 8.48l4.24 4.24M1 12h6m10 0h6M4.22 19.78l4.24-4.24m8.48-8.48l4.24-4.24"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Messages Container -->
+    <main class="messages-container" id="messagesContainer">
+      <div class="messages" id="messages" role="log" aria-live="polite" aria-label="Chat messages"></div>
+    </main>
+
+    <!-- Composer -->
+    <footer class="composer" id="composer">
+      <div class="composer-content">
+        <textarea 
+          id="messageInput" 
+          placeholder="tell me everything, babe..."
+          rows="1" 
+          maxlength="1000"
+          aria-label="Type your message"
+        ></textarea>
+        <button id="sendBtn" class="send-btn" aria-label="Send message" disabled>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22,2 15,22 11,13 2,9"></polygon>
+          </svg>
+        </button>
+      </div>
+      <div id="keyboardFab" class="keyboard-fab hidden" role="button" tabindex="0" aria-label="Show keyboard">
+        Keyboard?
+      </div>
+    </footer>
+  </div>
+
+  <!-- Settings Drawer -->
+  <div id="settingsDrawer" class="settings-drawer hidden" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+    <div class="settings-backdrop" id="settingsBackdrop"></div>
+    <div class="settings-panel glassmorphism">
+      <header class="settings-header">
+        <h2 id="settingsTitle">Midnight Bae Pro Settings</h2>
+        <button id="closeSettings" class="close-btn" aria-label="Close settings">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </header>
+      
+      <div class="settings-body">
+        <!-- Culture Selection -->
+        <div class="form-group">
+          <label for="cultureSelect" class="form-label">Culture</label>
+          <select id="cultureSelect" class="form-control">
+            <option value="indian">Indian</option>
+            <option value="american">American</option>
+            <option value="european">European</option>
+            <option value="latina">Latina</option>
+            <option value="asian">Asian</option>
+            <option value="african">African</option>
+          </select>
+        </div>
+
+        <!-- Personality Selection -->
+        <div class="form-group">
+          <label for="personalitySelect" class="form-label">Personality</label>
+          <select id="personalitySelect" class="form-control">
+            <option value="sarcastic">Sarcastic Savage</option>
+            <option value="supportive">Supportive Bestie</option>
+            <option value="drama">Drama Queen</option>
+            <option value="chill">Chill Mentor</option>
+            <option value="tease">Playful Tease</option>
+            <option value="coach">Motivational Coach</option>
+          </select>
+        </div>
+
+        <!-- Theme Selection -->
+        <div class="form-group">
+          <label for="themeSelect" class="form-label">Theme</label>
+          <select id="themeSelect" class="form-control">
+            <option value="auto">Auto (System)</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </div>
+
+        <!-- Offline Journaling -->
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="offlineJournalingCheck" class="checkbox">
+            <span class="checkbox-text">Enable Offline Journaling</span>
+            <small class="form-help">Save messages locally for offline access</small>
+          </label>
+        </div>
+
+        <!-- Learning Stats -->
+        <div class="form-group">
+          <div class="stats-grid">
+            <div class="stat-item">
+              <span class="stat-label">Lies Detected</span>
+              <span class="stat-value" id="liesCount">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Over-promises</span>
+              <span class="stat-value" id="promisesCount">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Self-hate</span>
+              <span class="stat-value" id="selfHateCount">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Typing Indicator Template -->
+  <template id="typingTemplate">
+    <div class="message ai typing-message">
+      <div class="message-content">
+        <div class="bubble typing-bubble">
+          <div class="typing-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
